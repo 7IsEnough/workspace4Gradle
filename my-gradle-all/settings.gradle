@@ -1,0 +1,4 @@
+rootProject.name = 'my-gradle-all'
+include 'my-gradle-service'
+include 'my-gradle-entry'
+

@@ -1,0 +1,38 @@
+//plugins {
+//    id 'java'
+//}
+
+description = "this is my-gradle-entry!"
+
+group 'com.clearlove'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+hello.doLast {
+    println "- I'm my-gradle-entry and depends on my-gradle-all1"
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

@@ -1,0 +1,229 @@
+description "this is the first gradle"
+/**task firstgvy{
+     doLast{
+          println "this is the first gradle"
+     }
+}
+
+task secondgvy{
+     doLast{
+          println "this is the second gradle"
+     }
+}
+
+ task upper{
+     doLast{
+          String expStr = 'Promise'
+          println "original:" + expStr
+          println "Upper case:" + expStr.toUpperCase()
+     }
+}
+
+task count{
+     doLast{
+          4.times{
+               print "$it"
+          }
+     println ""
+     }
+} 
+
+task groovyJDKMethod{
+     String myName = "Promise";
+          myName.each() {
+               println "${it}"
+          };
+}
+
+task test1
+
+task promise {
+     doLast {
+          println "clearlove"
+     }
+}
+
+task promise777(dependsOn:promise) {
+     doLast {
+          println "7"
+     }
+}
+
+task promise
+task promise777
+
+//println promise.name
+//println project.promise.name
+
+println tasks.promise.name
+println tasks.promise777.name
+println tasks['promise'].name
+println tasks['promise777'].name
+
+
+task taskY {
+     doLast {
+          println "taskY"
+     }
+}
+
+task taskX {
+     doLast {
+          println "taskX"
+     }
+}
+taskY.dependsOn taskX
+
+
+task taskX {
+     doLast {
+          println "taskX"
+     }
+}
+
+taskX.dependsOn {
+     tasks.findAll {
+          task -> task.name.startsWith('lib');
+     }
+}
+
+task lib1{
+     doLast {
+          println "lib1"
+     }
+}
+
+task lib2{
+     doLast {
+          println "lib2"
+     }
+}
+
+task notALib {
+     doLast {
+          println "notALib"
+     }
+}
+
+
+
+
+
+
+apply plugin: 'java'
+
+task compile {
+     doLast {
+          println "We are doing the compile"
+     }
+} 
+
+compile.doFirst {
+     if(true) {throw new StopExecutionException()}
+}
+
+task myTask(dependsOn: 'compile') {
+     doLast {
+          println "I am not affected"
+     }
+} 
+
+
+
+apply from: "other.gradle"
+
+task test {
+     doLast {
+          println "version: $verson url: $url"
+     }
+} 
+
+
+apply plugin: HelloPlugin
+
+class HelloPlugin implements Plugin<Project> {
+     void apply(Project project) {
+          project.task("hello") {
+               doLast {
+                    println "Hello from the HelloPlugin"
+               }
+          }
+     }
+}
+
+
+class HelloPlugin implements Plugin<Project> {
+     void apply(Project project) {
+          project.extensions.create("greeting", HelloPluginExtension)
+
+          project.task("hello") {
+               doLast{
+                    println project.greeting.message
+               }
+          }
+     }
+}
+
+class HelloPluginExtension {
+     String message
+}
+
+apply plugin: HelloPlugin
+
+//greeting {
+//     message = "promise"
+//}
+
+greeting.message = "clearlove"
+
+
+apply plugin: GreetingPlugin
+
+greeting {
+     message = "Hi"
+     greeter = "Gradle"
+}
+
+class GreetingPlugin implements Plugin<Project> {
+     void apply(Project project) {
+          project.extensions.create("greeting", GreetingPluginExtension)
+
+          project.task("hello") {
+               doLast {
+                    println "${project.greeting.message} from ${project.greeting.greeter}"
+               }
+          }
+     }
+}
+
+class GreetingPluginExtension {
+     String message
+     String greeter
+}
+ **/
+
+task task1 {
+     doLast{
+          println "compiling source #1"
+     }
+}
+
+task task2(dependsOn: task1) {
+     doLast{
+          println "compiling unit tests #2"
+     }
+}
+
+task task3(dependsOn: [task1, task2]) {
+     doLast{
+          println "running unit tests #3"
+     }
+}
+
+task task4(dependsOn: [task1, task3]) {
+     doLast{
+          println "building the distribution #4"
+     }
+}
+
+

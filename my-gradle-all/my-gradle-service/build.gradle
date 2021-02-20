@@ -1,0 +1,47 @@
+//plugins {
+//    id 'java'
+//}
+buildscript {
+    ext{
+        springBootVersion='2.3.2.RELEASE'
+    }
+
+    repositories {
+        //新增以下2个阿里云镜像
+        maven {url 'https://maven.aliyun.com/nexus/content/groups/public/'}
+        maven {url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        //新增Spring插件库
+        maven {url 'http://repo.spring.io/plugins-release/'}
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+description = "this is my-gradle-service!"
+
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+group 'com.clearlove'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+hello.doLast {
+    println "- I'm my-gradle-service and depends on my-gradle-all1"
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(":my-gradle-entry")
+}
